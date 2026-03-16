@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>استمارة استقبال — د. إبراهيم زياد</title>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #1a1a2e; --ink-soft: #3d3d5c; --mist: #f4f2ee; --warm-white: #faf9f6;
+    --sage: #7a9e87; --sage-light: #b8d4c0; --sage-pale: #eaf2ec;
+    --rust: #c4714a; --gold: #c9a84c; --border: #dcd9d2;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Tajawal', sans-serif; background: var(--mist); color: var(--ink); font-size: 15px; line-height: 1.8; direction: rtl; }
+
+  .header { background: var(--ink); color: #fff; padding: 2.5rem 1.5rem 2rem; text-align: center; }
+  .header-eyebrow { font-size: 12px; color: var(--sage-light); margin-bottom: 0.5rem; }
+  .header h1 { font-family: 'Amiri', serif; font-size: clamp(1.8rem, 5vw, 2.8rem); font-weight: 700; line-height: 1.3; }
+  .header-sub { color: rgba(255,255,255,0.5); font-size: 13px; margin-top: 0.5rem; }
+  .header-divider { width: 40px; height: 2px; background: var(--gold); margin: 1rem auto 0; }
+
+  .form-shell { max-width: 700px; margin: 0 auto; padding: 2rem 1rem 5rem; }
+
+  .section-title {
+    font-family: 'Amiri', serif; font-size: 1.4rem; font-weight: 700;
+    color: #fff; background: var(--ink); border-radius: 10px 10px 0 0;
+    padding: 1rem 1.2rem; display: flex; align-items: center; gap: 0.6rem;
+    flex-direction: row-reverse; justify-content: flex-end; margin-top: 2rem;
+  }
+  .section-body { background: var(--warm-white); border: 1px solid var(--border); border-top: none; border-radius: 0 0 10px 10px; padding: 1.5rem 1.2rem; margin-bottom: 0.5rem; }
+
+  .field { display: flex; flex-direction: column; gap: 0.3rem; margin-bottom: 1rem; }
+  .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .field-row.triple { grid-template-columns: 1fr 1fr 1fr; }
+  @media(max-width:560px){ .field-row, .field-row.triple { grid-template-columns: 1fr; } }
+
+  label.field-label { font-size: 12px; font-weight: 600; color: var(--ink-soft); }
+  label.field-label .req { color: var(--rust); }
+
+  input[type="text"], input[type="email"], input[type="tel"],
+  input[type="date"], select, textarea {
+    font-family: 'Tajawal', sans-serif; font-size: 14px; color: var(--ink);
+    background: #fff; border: 1.5px solid var(--border); border-radius: 8px;
+    padding: 0.65rem 0.9rem; width: 100%; direction: rtl; text-align: right;
+    -webkit-appearance: none; transition: border-color 0.2s;
+  }
+  input:focus, select:focus, textarea:focus { outline: none; border-color: var(--sage); }
+  textarea { resize: vertical; min-height: 80px; }
+  select { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%23888'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: left 0.75rem center; padding-left: 2rem; }
+
+  .sub-label { font-size: 12px; font-weight: 700; color: var(--sage); margin: 1.2rem 0 0.5rem; text-transform: uppercase; letter-spacing: 0.05em; }
+
+  .check-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 0.4rem; }
+  .check-item { display: flex; align-items: center; flex-direction: row-reverse; justify-content: flex-end; gap: 0.5rem; background: #fff; border: 1.5px solid var(--border); border-radius: 7px; padding: 0.45rem 0.7rem; cursor: pointer; font-size: 13px; transition: all 0.15s; }
+  .check-item:has(input:checked) { border-color: var(--sage); background: var(--sage-pale); }
+  .check-item input { width: 15px; height: 15px; accent-color: var(--sage); flex-shrink: 0; border: none; box-shadow: none; padding: 0; }
+
+  .radio-group { display: flex; flex-wrap: wrap; gap: 0.4rem; flex-direction: row-reverse; }
+  .radio-pill { display: flex; align-items: center; gap: 0.4rem; flex-direction: row-reverse; background: #fff; border: 1.5px solid var(--border); border-radius: 30px; padding: 0.35rem 0.9rem; cursor: pointer; font-size: 13px; transition: all 0.15s; }
+  .radio-pill:has(input:checked) { background: var(--ink); color: #fff; border-color: var(--ink); }
+  .radio-pill input { width: 13px; height: 13px; accent-color: #fff; border: none; box-shadow: none; padding: 0; }
+
+  .scale-wrap { margin-top: 0.3rem; }
+  .scale-row { display: flex; align-items: center; gap: 0.5rem; direction: ltr; }
+  .scale-row input[type="range"] { flex: 1; accent-color: var(--sage); border: none; box-shadow: none; padding: 0; background: transparent; }
+  .scale-val { min-width: 2rem; text-align: center; font-weight: 700; color: var(--sage); }
+  .scale-labels { display: flex; justify-content: space-between; font-size: 11px; color: #aaa; direction: rtl; margin-top: 0.2rem; }
+
+  .notice { background: #fff8ed; border: 1px solid #f0ddb0; border-radius: 8px; padding: 0.8rem 1rem; font-size: 13px; color: #7a5c1e; margin-bottom: 1rem; text-align: right; }
+  .crisis { background: #fff2f2; border: 1px solid #f5b8b8; border-radius: 8px; padding: 0.8rem 1rem; font-size: 13px; color: #8b2020; margin-bottom: 1rem; text-align: center; }
+
+  .consent-item { display: flex; align-items: flex-start; flex-direction: row-reverse; gap: 0.75rem; background: #fff; border: 1.5px solid var(--border); border-radius: 8px; padding: 0.75rem 1rem; margin-bottom: 0.6rem; font-size: 13.5px; cursor: pointer; }
+  .consent-item:has(input:checked) { border-color: var(--sage); background: var(--sage-pale); }
+  .consent-item input { width: 16px; height: 16px; accent-color: var(--sage); flex-shrink: 0; margin-top: 3px; border: none; box-shadow: none; padding: 0; }
+
+  .submit-btn {
+    width: 100%; font-family: 'Tajawal', sans-serif; font-size: 17px; font-weight: 700;
+    background: var(--ink); color: #fff; border: none; border-radius: 10px;
+    padding: 1rem; cursor: pointer; margin-top: 1.5rem; transition: background 0.2s;
+    letter-spacing: 0.03em;
+  }
+  .submit-btn:hover { background: var(--sage); }
+  .submit-btn:disabled { background: #aaa; cursor: not-allowed; }
+
+  #successMsg { display: none; text-align: center; padding: 4rem 2rem; }
+  #successMsg .icon { font-size: 4rem; margin-bottom: 1rem; }
+  #successMsg h2 { font-family: 'Amiri', serif; font-size: 2rem; margin-bottom: 0.75rem; }
+  #successMsg p { color: var(--ink-soft); font-size: 15px; max-width: 400px; margin: 0 auto; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-eyebrow">New Patient Intake Form · استمارة استقبال المريض الجديد</div>
+  <h1>د. إبراهيم زياد<br><span style="font-size:1.2rem;opacity:0.65;font-weight:400;">Dr. Ibrahim Zeyad</span></h1>
+  <div class="header-sub">يُرجى تعبئة جميع الأقسام · Please fill all sections carefully</div>
+  <div class="header-divider"></div>
+</div>
+
+<!-- Netlify hidden form -->
+<form name="patient-intake" netlify netlify-honeypot="bot-field" hidden>
+  <input name="bot-field">
+  <input name="full-name"><input name="dob"><input name="phone"><input name="email"><input name="address">
+  <input name="complaint"><input name="duration"><input name="severity"><input name="concerns"><input name="suicidal-ideation">
+  <input name="prev-diagnoses"><input name="current-meds"><input name="past-meds"><input name="family-history">
+  <input name="medical-history"><input name="other-meds"><input name="allergies">
+  <input name="bedtime"><input name="waketime"><input name="sleep-hours"><input name="sleep-quality"><input name="sleep-complaints">
+  <input name="alcohol"><input name="cannabis"><input name="other-substances"><input name="substance-notes">
+  <input name="education"><input name="employment"><input name="marital-status"><input name="living-situation"><input name="social-notes">
+  <input name="trauma-types"><input name="trauma-notes">
+  <input name="signature-name"><input name="signature-date">
+</form>
+
+<div class="form-shell">
+<div id="mainForm">
+
+  <!-- SECTION 1 -->
+  <div class="section-title"><span>👤</span> البيانات الشخصية · Personal Information</div>
+  <div class="section-body">
+    <div class="field-row triple">
+      <div class="field"><label class="field-label">الاسم الأول · First Name <span class="req">*</span></label><input type="text" id="f_first" placeholder="محمد / Mohammed" required></div>
+      <div class="field"><label class="field-label">الأوسط · Middle</label><input type="text" id="f_mid" placeholder="أحمد / Ahmed"></div>
+      <div class="field"><label class="field-label">العائلة · Last Name <span class="req">*</span></label><input type="text" id="f_last" placeholder="الخالدي / Al-Khalidi" required></div>
+    </div>
+    <div class="field-row">
+      <div class="field"><label class="field-label">تاريخ الميلاد · Date of Birth <span class="req">*</span></label><input type="date" id="f_dob" required></div>
+      <div class="field"><label class="field-label">رقم الهاتف · Phone <span class="req">*</span></label><input type="tel" id="f_phone" placeholder="05XXXXXXXX" required></div>
+    </div>
+    <div class="field-row">
+      <div class="field"><label class="field-label">البريد الإلكتروني · Email</label><input type="email" id="f_email" placeholder="example@email.com"></div>
+      <div class="field"><label class="field-label">العنوان · Address</label><input type="text" id="f_addr" placeholder="المدينة، الحي / City, Area"></div>
+    </div>
+  </div>
+
+  <!-- SECTION 2 -->
+  <div class="section-title"><span>💬</span> سبب الزيارة · Chief Complaint</div>
+  <div class="section-body">
+    <div class="crisis">🚨 إذا كنت في أزمة · If you are in crisis — please call emergency services immediately</div>
+    <div class="field"><label class="field-label">الشكوى الرئيسية · Main Complaint <span class="req">*</span></label>
+      <textarea id="f_complaint" placeholder="يُرجى وصف الشكوى… / Please describe your main concern…" required></textarea>
+    </div>
+    <div class="field-row">
+      <div class="field"><label class="field-label">مدة الأعراض · Duration</label>
+        <select id="f_duration">
+          <option value="">اختر / Select…</option>
+          <option>أقل من أسبوعين / Less than 2 weeks</option>
+          <option>أسبوعين إلى شهر / 2–4 weeks</option>
+          <option>١–٣ أشهر / 1–3 months</option>
+          <option>٣–٦ أشهر / 3–6 months</option>
+          <option>٦–١٢ شهراً / 6–12 months</option>
+          <option>١–٥ سنوات / 1–5 years</option>
+          <option>أكثر من ٥ سنوات / Over 5 years</option>
+          <option>معظم حياتي / Most of my life</option>
+        </select>
+      </div>
+      <div class="field"><label class="field-label">شدة الأعراض · Severity (1–10)</label>
+        <div class="scale-wrap">
+          <div class="scale-row">
+            <span style="font-size:11px;color:#aaa;">1</span>
+            <input type="range" id="f_severity" min="1" max="10" value="5" oninput="document.getElementById('sv').textContent=this.value">
+            <span style="font-size:11px;color:#aaa;">10</span>
+            <span class="scale-val" id="sv">5</span>
+          </div>
+          <div class="scale-labels"><span>خفيفة / Mild</span><span>شديدة / Severe</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="sub-label">مجالات طلب المساعدة · Areas of Concern</div>
+    <div class="check-grid" id="concerns">
+      <label class="check-item"><input type="checkbox" value="Depression / اكتئاب"><span>Depression / اكتئاب</span></label>
+      <label class="check-item"><input type="checkbox" value="Anxiety / قلق"><span>Anxiety / قلق</span></label>
+      <label class="check-item"><input type="checkbox" value="Bipolar / ثنائي القطب"><span>Bipolar / ثنائي القطب</span></label>
+      <label class="check-item"><input type="checkbox" value="PTSD / صدمة"><span>PTSD / صدمة</span></label>
+      <label class="check-item"><input type="checkbox" value="OCD / وسواس"><span>OCD / وسواس</span></label>
+      <label class="check-item"><input type="checkbox" value="Psychosis / ذهان"><span>Psychosis / ذهان</span></label>
+      <label class="check-item"><input type="checkbox" value="ADHD"><span>ADHD / تشتت انتباه</span></label>
+      <label class="check-item"><input type="checkbox" value="Eating Disorder / اضطراب أكل"><span>Eating Disorder</span></label>
+      <label class="check-item"><input type="checkbox" value="Sleep Disorder / نوم"><span>Sleep Disorder / نوم</span></label>
+      <label class="check-item"><input type="checkbox" value="Addiction / إدمان"><span>Addiction / إدمان</span></label>
+      <label class="check-item"><input type="checkbox" value="Grief / حزن"><span>Grief / حزن</span></label>
+      <label class="check-item"><input type="checkbox" value="Relationships / علاقات"><span>Relationships / علاقات</span></label>
+    </div>
+    <div class="sub-label">الفحص الأمني · Safety Screening</div>
+    <div class="radio-group" id="si_group">
+      <label class="radio-pill"><input type="radio" name="si" value="No SI / لا أفكار انتحارية"><span>No SI / لا أفكار</span></label>
+      <label class="radio-pill"><input type="radio" name="si" value="Passive ideation / أفكار سلبية"><span>Passive / سلبية</span></label>
+      <label class="radio-pill"><input type="radio" name="si" value="Active no plan / نشطة بلا خطة"><span>Active no plan</span></label>
+      <label class="radio-pill"><input type="radio" name="si" value="Active with plan / نشطة مع خطة"><span>Active with plan</span></label>
+    </div>
+  </div>
+
+  <!-- SECTION 3 -->
+  <div class="section-title"><span>🧠</span> التاريخ النفسي · Psychiatric History</div>
+  <div class="section-body">
+    <div class="sub-label">التشخيصات السابقة · Previous Diagnoses</div>
+    <div class="check-grid" id="prev_dx">
+      <label class="check-item"><input type="checkbox" value="MDD / اكتئاب شديد"><span>MDD / اكتئاب شديد</span></label>
+      <label class="check-item"><input type="checkbox" value="Bipolar / ثنائي القطب"><span>Bipolar / ثنائي القطب</span></label>
+      <label class="check-item"><input type="checkbox" value="GAD / قلق عام"><span>GAD / قلق عام</span></label>
+      <label class="check-item"><input type="checkbox" value="Panic Disorder / هلع"><span>Panic / هلع</span></label>
+      <label class="check-item"><input type="checkbox" value="Social Anxiety / رهاب"><span>Social Anxiety / رهاب</span></label>
+      <label class="check-item"><input type="checkbox" value="PTSD"><span>PTSD / ما بعد الصدمة</span></label>
+      <label class="check-item"><input type="checkbox" value="OCD / وسواس قهري"><span>OCD / وسواس قهري</span></label>
+      <label class="check-item"><input type="checkbox" value="ADHD"><span>ADHD</span></label>
+      <label class="check-item"><input type="checkbox" value="Schizophrenia / فصام"><span>Schizophrenia / فصام</span></label>
+      <label class="check-item"><input type="checkbox" value="Personality Disorder / شخصية"><span>Personality D.</span></label>
+      <label class="check-item"><input type="checkbox" value="Eating Disorder / أكل"><span>Eating Disorder</span></label>
+      <label class="check-item"><input type="checkbox" value="ASD / توحد"><span>ASD / توحد</span></label>
+    </div>
+    <div class="field" style="margin-top:1rem"><label class="field-label">الأدوية الحالية · Current Psychiatric Medications</label>
+      <textarea id="f_meds_current" placeholder="الاسم، الجرعة / Name, dose…"></textarea>
+    </div>
+    <div class="field"><label class="field-label">الأدوية السابقة وسبب الإيقاف · Past Medications & Reason Stopped</label>
+      <textarea id="f_meds_past" placeholder="الدواء — سبب الإيقاف / Medication — reason stopped…"></textarea>
+    </div>
+    <div class="field"><label class="field-label">التاريخ العائلي النفسي · Family Psychiatric History</label>
+      <textarea id="f_fam_hx" placeholder="مثال: الأم — اكتئاب / e.g. Mother — depression…"></textarea>
+    </div>
+  </div>
+
+  <!-- SECTION 4 -->
+  <div class="section-title"><span>⚕️</span> التاريخ الطبي والنوم · Medical & Sleep</div>
+  <div class="section-body">
+    <div class="field"><label class="field-label">الأمراض الجسدية · Medical Conditions</label>
+      <textarea id="f_med_hx" placeholder="السكري، ضغط الدم… / Diabetes, hypertension…"></textarea>
+    </div>
+    <div class="field-row">
+      <div class="field"><label class="field-label">أدوية أخرى · Other Medications</label>
+        <textarea id="f_other_meds" placeholder="الاسم، الجرعة / Name, dose…" style="min-height:60px;"></textarea>
+      </div>
+      <div class="field"><label class="field-label">الحساسية · Drug Allergies</label>
+        <input type="text" id="f_allergy" placeholder="لا حساسية / None / Penicillin…">
+      </div>
+    </div>
+    <div class="field-row">
+      <div class="field"><label class="field-label">وقت النوم · Bedtime</label><input type="text" id="f_bedtime" placeholder="١١:٣٠ م / 11:30 PM"></div>
+      <div class="field"><label class="field-label">وقت الاستيقاظ · Wake Time</label><input type="text" id="f_waketime" placeholder="٧:٠٠ ص / 7:00 AM"></div>
+    </div>
+    <div class="field-row">
+      <div class="field"><label class="field-label">ساعات النوم · Sleep Hours</label>
+        <select id="f_sleep_hrs">
+          <option value="">اختر / Select…</option>
+          <option>أقل من ٤ / Less than 4</option><option>٤–٥ / 4–5 hrs</option>
+          <option>٥–٦ / 5–6 hrs</option><option>٦–٧ / 6–7 hrs</option>
+          <option>٧–٨ / 7–8 hrs</option><option>أكثر من ٨ / Over 8</option>
+        </select>
+      </div>
+      <div class="field"><label class="field-label">جودة النوم · Sleep Quality</label>
+        <select id="f_sleep_qual">
+          <option value="">اختر / Select…</option>
+          <option>منتعش جداً / Very refreshed</option><option>منتعش / Refreshed</option>
+          <option>محايد / Neutral</option><option>متعب / Tired</option><option>متعب جداً / Very tired</option>
+        </select>
+      </div>
+    </div>
+    <div class="sub-label">شكاوى النوم · Sleep Complaints</div>
+    <div class="check-grid" id="sleep_complaints">
+      <label class="check-item"><input type="checkbox" value="Difficulty falling asleep / صعوبة الخلود"><span>Difficulty falling asleep</span></label>
+      <label class="check-item"><input type="checkbox" value="Difficulty staying asleep / صعوبة الاستمرار"><span>Difficulty staying asleep</span></label>
+      <label class="check-item"><input type="checkbox" value="Early awakening / استيقاظ مبكر"><span>Early awakening</span></label>
+      <label class="check-item"><input type="checkbox" value="Snoring / apnea / شخير"><span>Snoring / apnea</span></label>
+      <label class="check-item"><input type="checkbox" value="Nightmares / كوابيس"><span>Nightmares / كوابيس</span></label>
+      <label class="check-item"><input type="checkbox" value="Daytime sleepiness / نعاس نهاري"><span>Daytime sleepiness</span></label>
+      <label class="check-item"><input type="checkbox" value="No complaints / لا شكاوى"><span>No complaints / لا شكاوى</span></label>
+    </div>
+  </div>
+
+  <!-- SECTION 5 -->
+  <div class="section-title"><span>🍃</span> تعاطي المواد · Substance Use</div>
+  <div class="section-body">
+    <div class="notice">🔒 إجاباتك سرية ومحمية قانوناً · Your answers are confidential and legally protected</div>
+    <div class="field-row">
+      <div class="field"><label class="field-label">الكحول · Alcohol</label>
+        <select id="f_alcohol">
+          <option value="">اختر / Select…</option>
+          <option>لا أتعاطى / Never</option><option>نادراً / Rarely</option>
+          <option>اجتماعياً / Socially</option><option>أسبوعياً / Weekly</option><option>يومياً / Daily</option>
+        </select>
+      </div>
+      <div class="field"><label class="field-label">القنّب · Cannabis</label>
+        <select id="f_cannabis">
+          <option value="">اختر / Select…</option>
+          <option>لا أتعاطى / Never</option><option>سابق فقط / Past only</option>
+          <option>نادراً / Rarely</option><option>أسبوعياً / Weekly</option><option>يومياً / Daily</option>
+        </select>
+      </div>
+    </div>
+    <div class="sub
